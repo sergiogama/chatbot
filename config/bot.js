@@ -90,8 +90,8 @@ function initCloudant() {
 function initConversation() {
     var conversationCredentials = appEnv.getServiceCreds("Conversation-Demo");
     console.log(conversationCredentials);
-    var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
-    var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
+    var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username; // adicionar username do serviço conversation
+    var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;// adicionar password do serviço conversation
     var conversationURL = process.env.CONVERSATION_URL || conversationCredentials.url;
     conversation = watson.conversation({
         url: conversationURL
