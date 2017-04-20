@@ -1,0 +1,29 @@
+{
+  "services": {
+    "cloudantNoSQLDB": [
+      {
+        "name": "NoSQLCloudant-db",
+        "label": "cloudantNoSQLDB",
+        "plan": "Lite",
+        "credentials": {
+            "username": "",
+            "password": "",
+            "host": "",
+            "port": 443,
+            "url": ""
+            }
+      }
+    ],
+    "conversation": [
+      {
+        "label": "conversation",
+        "name": "bot-demo-conversation",
+        "credentials": {
+            "url": "https://gateway.watsonplatform.net/conversation/api",
+            "password": "",
+            "username": ""
+        }
+      }
+    ]
+  }
+}
