@@ -3,6 +3,6 @@ applications:
   memory: 512M
   instances: 1
   domain: mybluemix.net
-  name: eusousergiogama
-  host: eusousergiogama
+  name: ibm-100-anos
+  host: ibm_100-anos-${random-word}
   disk_quota: 1024M
