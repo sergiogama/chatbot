@@ -6,7 +6,7 @@ This application demonstrates how to use the Bluemix Cloudant NoSQL DB service. 
 
 ## Para executar o app localmente
 
-1. [Install Node.js][]
+1. [Instalar Node.js][]
 + cd no diret'roio raiz do projeto
 + Execute `npm install` para instalar as dependências do app
 + Altere o aquivo config/bot.js e coloque as credenciais e workspace_id do conversation nas lilnhas à seguir:
