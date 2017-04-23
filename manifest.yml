@@ -4,5 +4,5 @@ applications:
   instances: 1
   domain: mybluemix.net
   name: ibm-100-anos
-  host: ibm_100-anos-${random-word}
+  host: ibm-100-anos-${random-word}
   disk_quota: 1024M
