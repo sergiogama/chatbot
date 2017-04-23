@@ -1,16 +1,21 @@
-# Node.js Cloudant Sample
+# Exemplo de Chatbot com Watson Conversation em Node.js
 
 This application demonstrates how to use the Bluemix Cloudant NoSQL DB service.  It helps users organize their favorite files. The UI talks to a RESTful Express CRUD backend API.
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/sergiogama/ibm-100-anos-bot)
 
-## Run the app locally
+## Para executar o app localmente
 
 1. [Install Node.js][]
-+ cd into this project's root directory
-+ Run `npm install` to install the app's dependencies
-+ Run `npm start` to start the app
-+ Access the running app in a browser at <http://localhost:6001>
++ cd no diret'roio raiz do projeto
++ Execute `npm install` para instalar as dependências do app
++ Altere o aquivo config/bot.js e coloque as credenciais e workspace_id do conversation nas lilnhas à seguir:
+    username: "<username>"
+    password: "<password>"
+    conversationWorkspace = "<workspace_id>";
 
-[Install Node.js]: https://nodejs.org/en/download/
++ Execute `npm start` para o iniciar o app
++ Acesse a aplicação no browser no link <http://localhost:6001>
+
+[Instale Node.js]: https://nodejs.org/en/download/
 "# Conversation-demo" 
