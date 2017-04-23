@@ -12,141 +12,27 @@
  */
 var watson = require('watson-developer-cloud');
 var CONVERSATION_NAME = "Conversation-Demo"; // conversation name goes here.
-var cfenv = require('cfenv');
-var chrono = require('chrono-node');
 var fs = require('fs');
 // load local VCAP configuration
-var vcapLocal = null;
 var appEnv = null;
-var appEnvOpts = {};
 var conversationWorkspace, conversation;
-fs.stat('./vcap-local.json', function (err, stat) {
-    if (err && err.code === 'ENOENT') {
-        // file does not exist
-        console.log('No vcap-local.json');
-        initializeAppEnv();
-    }
-    else if (err) {
-        console.log('Error retrieving local vcap: ', err.code);
-    }
-    else {
-        vcapLocal = require("../vcap-local.json");
-        console.log("Loaded local VCAP", vcapLocal);
-        appEnvOpts = {
-            vcap: vcapLocal
-        };
-        initializeAppEnv();
-    }
-});
-// get the app environment from Cloud Foundry, defaulting to local VCAP
-function initializeAppEnv() {
-    appEnv = cfenv.getAppEnv(appEnvOpts);
-    if (appEnv.isLocal) {
-        require('dotenv').load();
-    }
-    if (appEnv.services.cloudantNoSQLDB) {
-        //        initCloudant(); No cloudant for the moment
-    }
-    else {
-        console.error("No Cloudant service exists.");
-    }
-    if (appEnv.services.conversation) {
-        initConversation();
-    }
-    else {
-        console.error("No Watson conversation service exists");
-    }
-}
-// =====================================
-// CLOUDANT SETUP ======================
-// =====================================
-//var cloudantURL = process.env.CLOUDANT_URL;
-var dbname = "logs";
-var Logs;
 
-function initCloudant() {
-    var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("bv-bot-db").url;
-    var Cloudant = require('cloudant')({
-        url: cloudantURL
-        , plugin: 'retry'
-        , retryAttempts: 10
-        , retryTimeout: 500
-    });
-    // Create the accounts Logs if it doesn't exist
-    Cloudant.db.create(dbname, function (err, body) {
-        if (err) {
-            console.log("Database already exists: ", dbname);
-        }
-        else {
-            console.log("New database created: ", dbname);
-        }
-    });
-    Logs = Cloudant.db.use(dbname);
-}
 // =====================================
 // CREATE THE SERVICE WRAPPER ==========
 // =====================================
 // Create the service wrapper
-function initConversation() {
-    var conversationCredentials = appEnv.getServiceCreds("Conversation-Demo");
-    console.log(conversationCredentials);
-    var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username; // adicionar username do serviço conversation
-    var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;// adicionar password do serviço conversation
-    var conversationURL = process.env.CONVERSATION_URL || conversationCredentials.url;
     conversation = watson.conversation({
-        url: conversationURL
-        , username: conversationUsername
-        , password: conversationPassword
+        url: "https://gateway.watsonplatform.net/conversation/api"
+        , username: "cf243391-1054-43a8-b8f6-87343d4456ae"
+        , password: "fVnDeKxs1ZAG"
         , version_date: '2017-04-10'
         , version: 'v1'
     });
     // check if the workspace ID is specified in the environment
-    conversationWorkspace = process.env.CONVERSATION_WORKSPACE;
+    conversationWorkspace = "95a77cec-fb25-48e3-bab3-3065d034d185";
     // if not, look it up by name or create one
-    if (!conversationWorkspace) {
-        const workspaceName = CONVERSATION_NAME; // Workspace name goes here.
-        console.log('No conversation workspace configured in the environment.');
-        console.log(`Looking for a workspace named '${workspaceName}'...`);
-        conversation.listWorkspaces((err, result) => {
-            if (err) {
-                console.log('Failed to query workspaces. Conversation will not work.', err);
-            }
-            else {
-                const workspace = result.workspaces.find(workspace => workspace.name === workspaceName);
-                if (workspace) {
-                    conversationWorkspace = workspace.workspace_id;
-                    console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
-                }
-                else {
-                    console.log('Importing workspace from ./conversation/watson.json');
-                    // create the workspace
-                    const watsonWorkspace = JSON.parse(fs.readFileSync('./conversation/watson.json'));
-                    // force the name to our expected name
-                    watsonWorkspace.name = workspaceName;
-                    conversation.createWorkspace(watsonWorkspace, (createErr, workspace) => {
-                        if (createErr) {
-                            console.log('Failed to create workspace', err);
-                        }
-                        else {
-                            conversationWorkspace = workspace.workspace_id;
-                            console.log(`Successfully created the workspace '${workspaceName}'`);
-                            console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
-                        }
-                    });
-                }
-            }
-        });
-    }
-    else {
-        console.log('Workspace ID was specified as an environment variable.');
-        console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
-    }
-}
-var request = require('request');
-// =====================================
-// REQUEST =====================
-// =====================================
 // Allow clients to interact
+
 var chatbot = {
     sendMessage: function (req, callback) {
 //        var owner = req.user.username;
