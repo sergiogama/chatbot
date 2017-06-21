@@ -2,7 +2,7 @@
 
 Este aplicação é um demo de cliente de Chatbot com o objetivo comemorativo dos 100 anos de IBM no Brasil. Basta criar um conversation, colocar as credenciais neste app e fazer o deploy no Bluemix.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/sergiogama/ibm-100-anos-bot)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/sergiogama/chatbot)
 
 ## Para executar o app localmente
 
