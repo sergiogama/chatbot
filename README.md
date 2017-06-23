@@ -1,8 +1,10 @@
 # Exemplo de Chatbot com Watson Conversation em Node.js
 
-Este aplicação é um demo de cliente de Chatbot com o objetivo comemorativo dos 100 anos de IBM no Brasil. Basta criar um conversation, colocar as credenciais neste app e fazer o deploy no Bluemix.
+Este aplicação é um demo de cliente de Chatbot em Node.js que utiliza Watson Conversation. Basta criar um conversation, colocar as credenciais neste app e fazer o deploy no Bluemix. (Exemplo de criação de Watson Conversation no arquivo TUTORIAL ChatBot.pdf).
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/sergiogama/chatbot)
+
+OU
 
 ## Para executar o app localmente
 
